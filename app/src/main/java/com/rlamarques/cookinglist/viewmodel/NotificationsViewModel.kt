@@ -1,4 +1,4 @@
-package com.rlamarques.cookinglist.ui.notifications
+package com.rlamarques.cookinglist.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
