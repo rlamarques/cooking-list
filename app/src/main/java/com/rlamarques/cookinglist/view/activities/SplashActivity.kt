@@ -1,4 +1,4 @@
-package com.rlamarques.cookinglist.activities
+package com.rlamarques.cookinglist.view.activities
 
 import android.content.Intent
 import android.os.Build
@@ -10,7 +10,6 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import com.rlamarques.cookinglist.MainActivity
 import com.rlamarques.cookinglist.R
 import com.rlamarques.cookinglist.databinding.ActivitySplashBinding
 
