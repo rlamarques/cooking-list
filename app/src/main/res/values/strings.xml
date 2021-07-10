@@ -7,4 +7,14 @@
     <string name="splash_app_name">Notifications</string>
 
     <string name="menu_add_dish">Add dish</string>
+
+    <!--  Add dish activity  -->
+    <string name="add_dish_toolbar_title">Add Dish</string>
+    <string name="add_dish_input_title">Title</string>
+    <string name="add_dish_input_type">Type</string>
+    <string name="add_dish_input_category">Category</string>
+    <string name="add_dish_input_ingredients">Ingredients</string>
+    <string name="add_dish_input_cooking_time">Cooking time in minutes</string>
+    <string name="add_dish_input_directions_to_cook">Directions to cook</string>
+    <string name="add_dish_add_button">Add Dish</string>
 </resources>
