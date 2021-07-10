@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.rlamarques.cookinglist.R
 import com.rlamarques.cookinglist.databinding.FragmentAllDishesBinding
-import com.rlamarques.cookinglist.view.activities.AddUpdateDish
+import com.rlamarques.cookinglist.view.activities.AddUpdateDishActivity
 import com.rlamarques.cookinglist.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
@@ -57,7 +57,7 @@ class AllDishesFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.action_add_dish -> {
-                startActivity(Intent(requireActivity(), AddUpdateDish::class.java))
+                startActivity(Intent(requireActivity(), AddUpdateDishActivity::class.java))
                 return true
             }
         }
