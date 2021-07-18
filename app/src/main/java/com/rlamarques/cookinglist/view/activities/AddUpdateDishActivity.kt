@@ -1,16 +1,21 @@
 package com.rlamarques.cookinglist.view.activities
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -40,6 +45,27 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 R.id.iv_add_a_dish_image -> {
                     customImageSelectionDialog()
                 }
+            }
+        }
+    }
+
+    val getCameraPhoto = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.extras?.let {
+                val thumbnail: Bitmap = it.get("data") as Bitmap
+                mBinding.ivDishImage.setImageBitmap(thumbnail)
+                mBinding.ivAddADishImage.setImageResource(R.drawable.ic_edit)
+            }
+        }
+    }
+
+    val getGalleryPhoto = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.data.let {
+                mBinding.ivDishImage.setImageURI(it)
+                mBinding.ivAddADishImage.setImageResource(R.drawable.ic_edit)
             }
         }
     }
@@ -76,11 +102,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     if (report?.areAllPermissionsGranted() == true) {
-                        Toast.makeText(
-                            this@AddUpdateDishActivity,
-                            "You have Camera permission",
-                            Toast.LENGTH_SHORT)
-                            .show()
+                        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        getCameraPhoto.launch(intent)
                     } else {
                         showRationaleDialogForPermission()
                     }
@@ -102,11 +125,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     if (report?.areAllPermissionsGranted() == true) {
-                        Toast.makeText(
-                            this@AddUpdateDishActivity,
-                            "You have Gallery permission",
-                            Toast.LENGTH_SHORT)
-                            .show()
+                        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        getGalleryPhoto.launch(intent)
                     } else {
                         showRationaleDialogForPermission()
                     }
